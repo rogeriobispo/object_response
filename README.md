@@ -24,29 +24,12 @@ Or install it yourself as:
 ```ruby
 response = ObjectResponse.get('http://api.stackexchange.com/2.2/questions?site=stackoverflow')
 
+object_response = response.body_object
 
-# Or wrap things up in your own class
-class StackExchange
-  include ObjectResponse
-  base_uri 'api.stackexchange.com'
+puts object_response.items.first.owner.display_name
 
-  def initialize(service, page)
-    @options = { query: { site: service, page: page } }
-  end
-
-  def questions
-    self.class.get("/2.2/questions", @options)
-  end
-
-  def users
-    self.class.get("/2.2/users", @options)
-  end
-end
 ```
 
-stack_exchange = StackExchange.new("stackoverflow", 1)
-puts stack_exchange.questions
-puts stack_exchange.users
 
 
 ## Development
