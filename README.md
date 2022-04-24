@@ -24,10 +24,15 @@ Or install it yourself as:
 ```ruby
 response = ObjectResponse.get('http://api.stackexchange.com/2.2/questions?site=stackoverflow')
 
-object_response = response.body_object
+puts response.body, response.code, response.message, response.headers.inspect
 
+
+object_response = response.body_object #new method response as object
+
+# old version
+puts JSON.parse(response.body)['items'].first['owner']['display_name']
+# as object
 puts object_response.items.first.owner.display_name
-
 ```
 
 
@@ -40,7 +45,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/object_response. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/rogeriobispo/object_response/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/[rogeriobispo]/object_response. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/rogeriobispo/object_response/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## License
