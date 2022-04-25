@@ -35,7 +35,31 @@ puts JSON.parse(response.body)['items'].first['owner']['display_name']
 puts object_response.items.first.owner.display_name
 ```
 
+```ruby
+# Or wrap things up in your own class
+class StackExchange
+  include HTTParty
+  base_uri 'api.stackexchange.com'
 
+  def initialize(service, page)
+    @options = { query: { site: service, page: page } }
+  end
+
+  def questions
+    self.class.get("/2.2/questions", @options)
+  end
+
+  def users
+    self.class.get("/2.2/users", @options)
+  end
+end
+
+stack_exchange = StackExchange.new("stackoverflow", 1).questions
+# older version
+puts JSON.parse(stack_exchange.body)['items'].first['owner']['display_name']
+# new version
+puts stack_exchange.body_object.items.first.owner.display_name
+```
 
 ## Development
 
